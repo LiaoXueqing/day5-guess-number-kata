@@ -3,12 +3,13 @@ class GeneratorNumber{
 
     }
     generate(n){
-        let randomNumber = "";
-        for(let i=0;i<n;i++){
-            randomNumber+=this.generateOneNumber(0,9)+" ";
+        let set = new Set();
+        while(set.size<4){
+            set.add(this.generateOneNumber(0,9));
         }
-        return randomNumber.trim();
+        return [...set]; 
     }
+
     generateOneNumber(min,max){
         return Math.floor(Math.random()*(max-min+1)+min);
     }

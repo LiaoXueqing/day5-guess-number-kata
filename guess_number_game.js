@@ -1,16 +1,20 @@
-let GeneratorNumber = require('generator_number.js');
+
 class GuessNumberGame{
     constructor(){
-
     }
-    test(inputs){
-        // let answer = [1,2,3,4];
-        let answer = GeneratorNumber.generate(4);
+    test(inputs,answer){
+        let checkInfo = this.checkGuessNumber(inputs);
+        if(!checkInfo){
+            return false;
+        }
+        let guessArray = inputs.trim().split(" ").map((item)=>parseInt(item));
+        console.log(`guessArray:${guessArray}`);
+        return this.compareAnswer(guessArray,answer);
+        
+    }
+    compareAnswer(guessArray,answer){
         let countA = 0;
         let countB = 0;
-        let checkInfo = this.checkGuessNumber(inputs);
-        if(!checkInfo) return "Wrong Input,Input Again!";
-        let guessArray = inputs.split(" ").map(item=>parseInt(item));
         for(let i=0;i<guessArray.length;i++){
             if(guessArray[i]==answer[i]){ 
                 countA++;

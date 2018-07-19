@@ -1,16 +1,39 @@
-let GeneratorNumber = require("./generator_number.js");
 let GuessNumberGame = require("./guess_number_game.js");
-describe('Game',function(){
-    it('should return right',function(){
-        // let generate = new GeneratorNumber().generate();
-        // generate = jest.fn(()=>"2 3 4 5");
-
-        jest.spyOn(GeneratorNumber,"generate").mockReturnValue("1 2 3 4");
-
-
-        expect(new GuessNumberGame().test("2 3 4 5")).toEqual("4A0B");
-        expect(new GuessNumberGame().test("3 2 4 5")).toEqual("2A2B");
-        // expect(new GuessNumberGame().test("2 3 4 5")).toEqual("4A0B");
-
-    });
+let GeneratorNumber = require("./generator_number.js");
+const readline = require('readline');
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
 });
+rl.on('close', function() {
+    process.exit(0);
+});
+let guessCount = 0;
+class Game{
+    constructor(){
+    }
+    startGame(){
+        console.log("Guess Number Game, You have 6 chances to guess!");
+        let answer = new GeneratorNumber().generate(4);
+        console.log(`answer:${answer}`);
+        this.getInput(answer);
+    }
+    getInput(answer){
+        rl.on('line',function(inputs){
+            guessCount++;
+            let result = new GuessNumberGame().test(inputs,answer);
+            if(result!=false){
+                console.log(result);
+                if(result=="4A0B"||guessCount==6){
+                    console.log("Game Over!");
+                    rl.close();
+                    return ;
+                }
+            }else{
+                console.log("Wrong Input,Input Again!"); 
+            }
+            
+        });
+    }
+}
+new Game().startGame();

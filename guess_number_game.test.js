@@ -21,11 +21,4 @@ describe('GuessNumberGame',function(){
     it('should return correct text',function(){
         expect(new GuessNumberGame().test("1 1 3 4")).toEqual("Wrong Input,Input Again!");
     });
-    // it('test 6 times',function(){
-    //     let guessNumberGame = new GuessNumberGame();
-    //     for(let i=0;i<6;i++){
-    //         expect(guessNumberGame.test("1 3 7 4")).toEqual("2A1B");
-    //     }
-    //     expect(guessNumberGame.test("1 3 7 4")).toEqual("Game Over!");
-    // });
 });
